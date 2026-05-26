@@ -1,3 +1,5 @@
+import random
+
 from utils import (
     calculate_distance,
     normalize_warehouses,
@@ -63,10 +65,12 @@ class DeliverySimulator:
             destination = package["destination"]
 
             if warehouse_id not in self.warehouses:
+
                 print(
                     f"[WARNING] Invalid warehouse "
                     f"for package {package_id}"
                 )
+
                 continue
 
             warehouse_location = self.warehouses[
@@ -96,6 +100,9 @@ class DeliverySimulator:
                 delivery_distance
             )
 
+            # Random delivery delay bonus feature
+            delay = random.randint(1, 5)
+
             self.agent_report[nearest_agent][
                 "packages_delivered"
             ] += 1
@@ -108,6 +115,11 @@ class DeliverySimulator:
                 f"[INFO] "
                 f"Package {package_id} "
                 f"assigned to {nearest_agent}"
+            )
+
+            print(
+                f"[INFO] Delivery delayed "
+                f"by {delay} minutes."
             )
 
             print(
